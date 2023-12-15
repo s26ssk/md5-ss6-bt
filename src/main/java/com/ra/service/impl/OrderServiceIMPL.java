@@ -2,6 +2,7 @@ package com.ra.service.impl;
 
 import com.ra.dto.request.CreateOrder;
 import com.ra.dto.response.ListOrder;
+import com.ra.dto.response.OrdersDTO;
 import com.ra.exception.CustomException;
 import com.ra.model.Orders;
 import com.ra.model.Users;
@@ -11,10 +12,8 @@ import com.ra.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceIMPL implements IOrderService {
@@ -56,5 +55,16 @@ public class OrderServiceIMPL implements IOrderService {
 				  .status(item.getStatus())
 				  .build()).toList();
 		return list;
+	}
+
+	@Override
+	public List<OrdersDTO> getOrders() {
+		return orderRepository.getOrdersList();
+	}
+
+	@Override
+	public void updateByStatusAndId(Boolean status, Long id) {
+
+		 orderRepository.updateStatus(status,id);
 	}
 }

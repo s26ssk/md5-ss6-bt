@@ -2,6 +2,7 @@ package com.ra.controller;
 
 import com.ra.dto.request.CreateOrder;
 import com.ra.dto.response.ListOrder;
+import com.ra.dto.response.OrdersDTO;
 import com.ra.exception.CustomException;
 import com.ra.model.Orders;
 import com.ra.service.IOrderService;
@@ -25,8 +26,12 @@ public class OrderController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<ListOrder>> getAllOrders() {
-		return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
+	public ResponseEntity<List<OrdersDTO>> getAllOrders() {
+		return new ResponseEntity<>(orderService.getOrders(), HttpStatus.OK);
 	}
-	
+	@PatchMapping("/{idOrder}")
+	public ResponseEntity<?> updateStatus(@PathVariable Long idOrder,@RequestParam("status") Boolean status){
+		orderService.updateByStatusAndId(status,idOrder);
+		return new ResponseEntity<>("OK",HttpStatus.OK);
+	}
 }
