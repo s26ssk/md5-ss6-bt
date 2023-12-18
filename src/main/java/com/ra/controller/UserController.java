@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,5 +45,12 @@ public class UserController {
         data.put("totalElement",usersPage.getTotalElements());
         data.put("totalPages",usersPage.getTotalPages());
         return new ResponseEntity<>(data,HttpStatus.OK);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Page<Users>> search
+            (@RequestParam String keyword,
+             @PageableDefault(size = 2,page = 0)  Pageable pageable){
+        Page<Users> usersPage = userService.getAllUserByName(keyword,pageable);
+        return new ResponseEntity<>(usersPage,HttpStatus.OK);
     }
 }

@@ -12,4 +12,6 @@ public interface UserService {
     List<Users> sortByName(String order);
 
     Page<Users> getPaginate(Pageable pageable);
+
+    Page<Users> getAllUserByName(String userName,Pageable pageable);
 }

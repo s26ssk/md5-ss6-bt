@@ -34,4 +34,9 @@ public class UserServiceImpl implements UserService {
     public Page<Users> getPaginate(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Users> getAllUserByName(String userName, Pageable pageable) {
+        return userRepository.findAllByUsernameContainingIgnoreCase(userName,pageable);
+    }
 }
