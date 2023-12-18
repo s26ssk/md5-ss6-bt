@@ -64,7 +64,6 @@ public class OrderServiceIMPL implements IOrderService {
 
 	@Override
 	public void updateByStatusAndId(Boolean status, Long id) {
-
 		 orderRepository.updateStatus(status,id);
 	}
 }

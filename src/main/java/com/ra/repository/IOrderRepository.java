@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<Orders, Long> {
@@ -24,4 +25,6 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
     @Modifying
     @Transactional
     void updateStatus(@Param("status") Boolean status,@Param("id") Long id);
+    
+    Optional<Orders> findByStatusAndUsersId(boolean status,Long idUser);
 }
